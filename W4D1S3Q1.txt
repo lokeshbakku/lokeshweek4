@@ -1,0 +1,78 @@
+W4D1S3Q1
+
+<!DOCTYPE html>
+<html>
+<head>
+   
+</head>
+<body>
+<h1>Library Management System</h1>
+
+<h1>Library Management System</h1>
+<div id="bookGrid"></div>
+<script src="script.js"></script>
+</body>
+</html>
+
+interface Book{
+    id: number;
+    title:string;
+    borrowed:boolean;
+}
+const books: Book[] =[
+    {id:0,title:"1984 by George Orwell", borrowed: false},
+    {id:1, title:"To Kill a Mockingbird by Harper Les",borrowed:false},
+    {id:2, title:"The Great Gatsby by F.Scott Fitzgerald",borrowed:false},
+];
+
+function renderBooks(): void{
+    const bookGrid = document.getElementById("bookGrid") as HTMLElement;
+    bookGrid.innerHTML="";
+
+    books.forEach((book)=>{
+        const bookDiv=document.createElement("div");
+        bookDiv.className="book";
+
+        const title = document.createElement("p");
+        title.textContent = book.title;
+
+        const status = document.createElement("p");
+        status.textContent=`Is borrowed: ${book.borrowed}`;
+        status.id =`status-${book.id}`;
+
+        const borrowButton = document.createElement("button");
+        borrowButton.id=`borrowButton-${book.id}`;
+        borrowButton.textContent ="Borrow";
+        borrowButton.disabled = book.borrowed;
+
+        const returnButton = document.createElement("button");
+        returnButton.id =`returnButton-${book.id}`;
+        returnButton.textContent ="Return";
+        returnButton.disabled =!book.borrowed;
+
+        borrowButton.addEventListener("click",()=>{
+            book.borrowed = true;
+            renderBooks();
+        });
+        returnButton.addEventListener("click",()=>{
+            book.borrowed = false;
+            renderBooks();
+        });
+        bookDiv.appendChild(title);
+        bookDiv.appendChild(status);
+        bookDiv.appendChild(borrowButton);
+        bookDiv.appendChild(returnButton);
+
+        bookGrid.appendChild(bookDiv);
+    });
+}
+renderBooks();
+
+
+
+
+
+
+
+
+

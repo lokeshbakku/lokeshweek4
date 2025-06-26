@@ -1,0 +1,93 @@
+W4D1S3Q2
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product List and Cart Management</title>
+    <script src="script.js"defer></script>
+    
+   
+</head>
+<body>
+    <h1>Product List</h1>
+    <div id="productContainer">
+
+    
+    </div>
+    
+    <ul id="cartList"></ul>
+</body>
+</html>
+interface Product {
+    name:string
+    price:number
+}
+
+interface CartItem {
+    name:string
+    price:number
+    quantity:number
+}
+const products:Product[] =[
+    {name:'Product A', price:10.00},
+    {name:'Product B', price:20.00},
+    {name:'Product C', price:30.00}
+];
+
+const cart:CartItem[]=[];
+
+function renderProducts(){
+    const prodcont = document.getElementById('productContainer');
+    prodcont.innerHTML='';
+    products.forEach((product,index)=>{
+        const div = document.createElement('div');
+        div.className ='product';
+        div.innerHTML=`
+        <p>${product.name}</p>
+        <p>$${product.price.toFixed(2)}</p>
+        <button onclick="addToCart(${index})">Add to Cart</button>
+        `;
+        prodcont.appendChild(div);
+    })
+}
+function renderCart(){
+    const list = document.getElementById('cartList');
+    list.innerHTML="";
+    cart.forEach((item,index)=>{
+        const li = document.createElement('li');
+        li.className='cart-item';
+        li.innerHTML=`<p>${item.name} x ${item.quantity}</p>
+                      <p>$${(item.price * item.quantity).toFixed(2)}</p>
+                      <button onclick="remove(${index})">Remove</button>
+                      `;
+        list.appendChild(li);              
+
+
+    })
+}
+
+function addToCart(index:number){
+    const product = products[index];
+    const existingItem = cart.find(item => item.name === product.name);
+
+    if(existingItem){
+        existingItem.quantity+=1;
+    }
+    else{
+        const newItem: CartItem ={
+            name:product.name,
+            price:product.price,
+            quantity:1
+        };
+        cart.push(newItem);
+    }
+    renderCart();
+
+}
+
+function remove(index:number){
+    cart.splice(index,1);
+    renderCart();
+
+}
+renderProducts();
