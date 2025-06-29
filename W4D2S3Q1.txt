@@ -1,0 +1,64 @@
+W4D2S3Q1
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Airport Flight Information System</h1>
+    <form id="flight-form">
+        <label for="flight-number">Flight Number:</label>
+        <input type="text" id="flight-number"/>
+
+        <label for="speed">Speed (mph):</label>
+        <input type="number" id="speed"/>
+
+        <label for="time">Time (hours):</label>
+        <input type="number" id="time"/>
+        <button type="submit" id="add-flight">Add Flight</button>
+        <div id="flight-list">
+            
+        </div>
+    </form>
+    <ul id="flight-list"></ul>
+    <script src="script.js"></script>
+</body>
+</html>
+
+interface list{
+    flightnum: number,
+    speed:number,
+    time:number,
+    distance:number
+}
+const form = document.getElementById('flight-form') as HTMLFormElement
+form.addEventListener('submit', (e)=>{
+    e.preventDefault()
+
+    const num = (document.getElementById('flight-number') as HTMLInputElement).value
+    const speed = parseFloat((document.getElementById('speed') as HTMLInputElement).value)
+    const time = parseFloat((document.getElementById('time') as HTMLInputElement).value)
+    const flili = document.getElementById('flight-list')
+    flili.innerText = ''
+    if(!num || isNaN(speed) || isNaN(time)){
+        flili.innerText = "Please fill out all fields with valid numbers"
+        flili.style.color = 'rgb(255,0,0)'
+    }
+    flili.innerHTML = ''
+    const distance = (speed * time).toFixed(2)
+    const row = document.createElement('div')
+    row.innerHTML = `
+    <div>
+    <h3>Flight Number: ${num}</h3>
+    <p>Speed: ${speed} mph</p>
+    <p>Time: ${time} hours</p>
+    <p>Distance: ${distance} miles</p>
+    </div>
+    `;
+    flili.appendChild(row)
+    form.reset()
+})
+

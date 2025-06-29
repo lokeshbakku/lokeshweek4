@@ -1,0 +1,74 @@
+W4D2S3Q3
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hotel Reservation System</h1>
+    <form id="reservation-form">
+        <label for="name">Guest Name:</label>
+        <input type="text" id="guest-name">
+
+        <label for="date">Check-in Date::</label>
+        <input type="date" id="check-in-date">
+
+        <label for="out-date">Check-out Date:</label>
+        <input type="date" id="check-out-date">
+
+        <label for="">Room Type:</label>
+        <select id="room-type">
+            <option value="Standard">Standard</option>
+            <option value="Delux">Delux</option>
+            <option value="Suite">Suite</option>
+        </select>
+        <button type="submit" id="add-reservation">Add Reservation</button>
+    </form>
+    <ul id="reservation-list"></ul>
+    <script src="script.js"></script>
+</body>
+</html>
+------------------------ts file
+interface list{
+    name:string,
+    indate:number,
+    outdate:number,
+    type:string
+}
+const form = document.getElementById('reservation-form') as HTMLFormElement
+form.addEventListener('submit',(e)=>{
+    e.preventDefault()
+
+    const name = (document.getElementById('guest-name') as HTMLInputElement).value
+    const indate = (document.getElementById('check-in-date') as HTMLInputElement).value
+    const outdate = (document.getElementById('check-out-date') as HTMLInputElement).value
+    const type = document.getElementById('room-type') as HTMLInputElement
+    const output = document.getElementById('reservation-list')
+    const typeInput = type.value
+    
+    output.innerText = ''
+    if(!name || !indate || !outdate || !type){
+        output.innerText = "Please fill out all fields with valid dates."
+        output.style.color = 'rgb(255,0,0)'
+        return
+    }
+
+    const indateFormat = new Date(indate).toLocaleDateString()
+    const outdateFormat = new Date(outdate).toLocaleDateString()
+    output.innerHTML = ''
+    const row = document.createElement('li') as HTMLElement
+    row.innerHTML = `
+    <div>
+    <h3>Guest Name: ${name}</h3>
+    <p>Check-in Date: ${indateFormat}</p>
+    <p>Check-out Date: ${outdateFormat}</p>
+    <p>Room Type: ${typeInput}</p>
+    </div>
+    `;
+    output.appendChild(row)
+    form.reset()
+    type.value = 'Standard'
+})
