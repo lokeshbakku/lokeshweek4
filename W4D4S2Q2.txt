@@ -1,0 +1,62 @@
+W4D4S2Q2
+
+app.comp.html
+<app-counter></app-counter>
+
+counter.comp.html
+
+<div class="container">
+    <h1>Welcome to Simple Counter App!</h1>
+    <div class="card">
+        <h2>Simple Counter</h2>
+        <p id="countDisplay">Count: {{count}}</p>
+    </div>
+</div>
+
+
+counter.comp.ts
+
+import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
+
+@Component({
+  selector: 'app-counter',
+  templateUrl: './counter.component.html',
+  styleUrls: ['./counter.component.css']
+})
+export class CounterComponent implements OnInit {
+
+  count:number = 0
+  intervalId !: any
+  destroyed:boolean = false
+  constructor(private renderer:Renderer2, private elementRef: ElementRef) { }
+
+  ngOnInit(): void {
+    this.startCounter()
+  }
+
+  startCounter():void{
+    this.intervalId = setInterval(()=>{
+      this.count++
+      if(this.count > 9){
+        this.ngOnDestroy()
+        return;
+      }
+    }, 1000)
+  }
+
+  stopCounter():void{
+    clearInterval(this.intervalId)
+  }
+
+  displayDestroyedMessage():void{
+    const para = this.renderer.createElement('p')
+    this.renderer.setProperty(para, 'innerText', 'CounterComponent has been destroyed')
+    const container = this.elementRef.nativeElement.querySelector('.container')
+    this.renderer.appendChild(container,para)
+  }
+  ngOnDestroy():void{
+    this.stopCounter()
+    this.displayDestroyedMessage()
+    this.destroyed=true
+  }
+}
