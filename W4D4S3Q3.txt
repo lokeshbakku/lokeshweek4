@@ -1,0 +1,44 @@
+W4D4S3Q3
+
+app.comp.html
+<app-vehicle></app-vehicle>
+
+
+vehicle.comp.ts
+import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
+
+@Component({
+  selector: 'app-vehicle',
+  templateUrl: './vehicle.component.html',
+  styleUrls: ['./vehicle.component.css']
+})
+export class VehicleComponent implements OnInit {
+  vehicles:string[] =["car", "bike","truck"]
+  isButtonDisable :boolean = false
+
+  constructor(private renderer: Renderer2, private elementRef: ElementRef) { }
+  
+  ngOnInit(): void {
+    this.renderVehicles()
+  }
+  addVehicle(): void{
+    this.vehicles.push("bus");
+    this.renderVehicles();
+    this.isButtonDisable = true;
+  }
+  renderVehicles():void{
+    this.elementRef.nativeElement.querySelector("#vehicleContainer").innerHTML = ''
+    this.vehicles.forEach(vehicle => {
+      const divEle = this.renderer.createElement('div')
+      this.renderer.setProperty(divEle, 'textContent', vehicle)
+      this.renderer.appendChild(
+        this.elementRef.nativeElement.querySelector("#vehicleContainer"), divEle
+      )
+    });
+  }
+}
+
+
+vehicle.comp.html
+<div id="vehicleContainer"></div>
+<button (click)="addVehicle()" [disabled]="isButtonDisable">Add Vehicle</button>

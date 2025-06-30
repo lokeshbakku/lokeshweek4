@@ -1,0 +1,23 @@
+W4D4S1Q3
+
+app.component.html
+<app-greetings></app-greetings>
+
+greetings.comp.html
+<h2 style="text-align: center;">Greetings for Hotel Opening</h2>
+<h3>Hotel Information</h3>
+<p>Hotel Name: Azure Bliss Hotel</p>
+<p>Opening Date: March 15, 2024</p>
+<p>Location: Serene Valley, Coastal Paradise</p>
+<h3>About the Hotel</h3>
+<p>Lorem ipsum dolor sit amet.</p>
+<h3>Ambiance</h3>
+<p>Lorem, ipsum dolor.</p>
+<h3>Hygiene</h3>
+<p>Lorem ipsum dolor sit amet.</p>
+
+greetings.comp.css
+h3{
+    color: skyblue;
+}
+
