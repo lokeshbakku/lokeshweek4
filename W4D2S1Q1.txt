@@ -1,0 +1,52 @@
+W4D2S1Q1
+
+HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header><h1>library management system</h1></header>
+    <form id="formin">
+    <input type="text" id="bookTitle" placeholder="Enter book title"/>
+    <input type="text" id="bookAuthor" placeholder="Enter book author"/>
+   <select id="bookGenre">
+    <option value="Fiction">Fiction</option>
+   </select>
+   <button type="submit" id="btn">Add Book</button>
+   </form>
+   <div id="books-list"></div>
+   <script src="script.js"></script>
+</body>
+</html>
+
+--------script.ts
+const form = document.getElementById('formin') as HTMLFormElement
+form.addEventListener('submit', (e)=>{
+    e.preventDefault()
+    const btile = (document.getElementById('bookTitle') as HTMLInputElement).value
+    const bauth = (document.getElementById('bookAuthor') as HTMLInputElement).value
+    const fic = (document.getElementById('bookGenre') as HTMLSelectElement).value
+    const list = document.querySelector('#books-list')
+    const div = document.createElement('div')
+    div.className = 'book'
+    div.innerHTML = `
+    <h1>${btile}</h1>
+    <p>Author:${bauth}</p>
+    <p>Genre:${fic}</p>
+    `;
+    const delBtn = document.createElement('button')
+    delBtn.textContent = 'Delete'
+    delBtn.addEventListener('click', ()=>{
+        list.removeChild(div)
+    })
+    div.appendChild(delBtn)
+    list.appendChild(div);
+
+    (document.getElementById('bookTitle') as HTMLInputElement).value = '';
+    (document.getElementById('bookAuthor') as HTMLInputElement).value = '';
+    (document.getElementById('bookGenre') as HTMLInputElement).value = ''
+})
