@@ -1,0 +1,54 @@
+W4D5S2Q1
+
+
+comp.html
+<div>
+    <input type="text" [(ngModel)]="newBookTitle"/>
+    <button (click)="addBook()">Add Book</button>
+</div>
+<ul>
+    <li *ngFor="let book of books; let i = index">
+    <span [ngClass]="{'strike':book.completed}">{{book.title}}</span>
+    <button (click)="completedBook(book)">Completed</button>
+    <button (click)="deleteBook(book)">Delete</button>
+    </li>
+</ul>
+
+
+
+comp.ts
+
+import { Component, OnInit } from '@angular/core';
+
+interface Book{
+  title:string,
+  completed:boolean
+}
+
+@Component({
+  selector: 'app-book-list',
+  templateUrl: './book-list.component.html',
+  styleUrls: ['./book-list.component.css']
+})
+export class BookListComponent implements OnInit {
+
+  books:Book[] = []
+  newBookTitle:string = ''
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+  addBook():void{
+    if(!this.newBookTitle) return
+    let itbe : string = this.newBookTitle.trim()
+    this.books.push({title:itbe, completed:false});
+    this.newBookTitle=""
+  }
+  completeBook(book:Book):void{
+    book.completed = !book.completed;
+  }
+
+  deleteBook(index:number):void{
+    this.books.splice(index, 1)
+  }
+}

@@ -1,0 +1,88 @@
+W4D5S1Q1
+
+create two components product-list, product-detail
+
+app-comp.html
+<app-product-list></app-product-list>
+
+prod-list-ts
+import { Component, OnInit } from '@angular/core';
+
+export interface Product{
+  name:string;
+  description: string;
+}
+
+@Component({
+  selector: 'app-product-list',
+  templateUrl: './product-list.component.html',
+  styleUrls: ['./product-list.component.css']
+})
+export class ProductListComponent implements OnInit {
+
+  products: Product[]=[
+    {name: ' Product 1', description:'Description for Product 1'},
+    {name: ' Product 2', description:'Description for Product 2'},
+    {name: ' Product 3', description:'Description for Product 3'},
+  ]
+
+  selectedProduct: Product = null;
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  selectProduct(index: number):void{
+    this.selectedProduct = this.products[index];
+  }
+
+  clearSelectedProduct(data:any):void{
+    console.log(data)
+    this.selectedProduct = null;
+  }
+}
+
+prod-list-html
+<h2>Products</h2>
+<ul>
+    <li *ngFor="let product of products; let i = index" (click)="selectProduct(i)">{{ product.name }}</li>
+</ul>
+<app-product-detail [product]="selectedProduct" (clearSelection)="clearSelectedProduct($event)"></app-product-detail>
+
+prod-detail-ts
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Product } from '../product-list/product-list.component';
+
+@Component({
+  selector: 'app-product-detail',
+  templateUrl: './product-detail.component.html',
+  styleUrls: ['./product-detail.component.css']
+})
+export class ProductDetailComponent implements OnInit {
+
+  // ------child carrying both input and output
+  @Input() product: Product = null;
+  // -------emit gives value from child to parent
+  @Output() clearSelection = new EventEmitter()
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  clear():void{
+    this.clearSelection.emit('hello')
+  }
+}
+
+prod-detail-html
+<!-- <div id="product-detail" *ngIf="product">
+    <p>{{ product?.name }}</p>
+    <p>{{ product?.description }}</p>
+    <button (click)="clear()">Clear Selection</button>
+</div> -->
+<div id="product-detail">
+    <p>{{ product?.name }}</p>
+    <p>{{ product?.description }}</p>
+    <button (click)="clear()">Clear Selection</button>
+</div>
+
