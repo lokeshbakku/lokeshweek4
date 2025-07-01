@@ -1,61 +1,43 @@
 W4D4S3Q2
 
 app.comp.html
-<app-timer></app-timer>
+<app-fruit></app-fruit>
 
-timer.com.ts
+fruit.comp.ts-----------
+
 import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
 
 @Component({
-  selector: 'app-timer',
-  templateUrl: './timer.component.html',
-  styleUrls: ['./timer.component.css']
+  selector: 'app-fruit',
+  templateUrl: './fruit.component.html',
+  styleUrls: ['./fruit.component.css']
 })
-export class TimerComponent implements OnInit {
+export class FruitComponent implements OnInit {
 
-  countdownValue: number = 10;
-  intervalId!: any;
+  fruits:string[] = ["apple","banana","cherry"]
+  isButtonDisabled:boolean = false
+  constructor(private renderer:Renderer2, private elementRef: ElementRef) { }
 
-  constructor(private renderer: Renderer2, private elementRef: ElementRef) { }
-
-  ngOnInit(): void { 
-    this.startTimer();
+  ngOnInit(): void {
+    this.renderFruits()
   }
 
-  startTimer(): void { 
-    this.intervalId = setInterval(() => {
-      if(this.countdownValue === 0){
-        this.ngOnDestroy();
-        return;
-      }
-      this.countdownValue--;
-    }, 1000)
+  addFruit():void{
+    this.fruits.push("Orange")
+    this.renderFruits()
+    this.isButtonDisabled = true
   }
-
-  stopTimer(): void {
-    clearInterval(this.intervalId)
-   }
-
-  displayDestroyedMessage(): void { 
-    const paragraph = this.renderer.createElement('p')
-    this.renderer.setProperty(paragraph,'innerText','Timer Component has been destroyed')
-    const container = this.elementRef.nativeElement.querySelector('.container')
-    this.renderer.appendChild(container, paragraph)
+  renderFruits():void{
+    this.elementRef.nativeElement.querySelector('#fruitContainer').innerHTML = ''
+    this.fruits.forEach((fruit)=>{
+      const div = this.renderer.createElement('div')
+      this.renderer.setProperty(div, 'textContent', fruit)
+      this.elementRef.nativeElement.querySelector('#fruitContainer').appendChild(div)
+    })
   }
-
-  ngOnDestroy(): void { 
-    this.displayDestroyedMessage()
-    this.stopTimer()
-   }
-
 }
 
 
-timer.comp.html
-<div class="container">
-    <h1>Welcome to Countdown Timer App!</h1>
-    <div class="card">
-        <h2>Simple Timer</h2>
-        <p id="countDisplay">Time Remaining: {{ countdownValue }} seconds</p>
-    </div>
-</div>
+fruit.comp.html---------
+<div id="fruitContainer"></div>
+<button (click)="addFruit()" [disabled]="isButtonDisabled">Add Fruit</button>

@@ -1,0 +1,41 @@
+W4D4S3Q1
+
+app.comp.html
+<app-task></app-task>
+
+task.comp.ts---------
+import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
+
+@Component({
+  selector: 'app-task',
+  templateUrl: './task.component.html',
+  styleUrls: ['./task.component.css']
+})
+export class TaskComponent implements OnInit {
+
+  tasks:string[] = ['Complete project', 'Read a book', 'Go for a walk']
+  isButtonDisabled:boolean = false
+  constructor(private renderer: Renderer2, private elementRef: ElementRef) { }
+
+  ngOnInit(): void {
+    this.renderTasks()
+  }
+
+  addTask():void{
+    this.tasks.push("New Task")
+    this.renderTasks()
+    this.isButtonDisabled = true
+  }
+  renderTasks():void{
+    this.elementRef.nativeElement.querySelector('#taskContainer').innerHTML = ''
+    this.tasks.forEach((task)=>{
+      const div = this.renderer.createElement('div')
+      this.renderer.setProperty(div, 'textContent', task)
+      this.elementRef.nativeElement.querySelector('#taskContainer').appendChild(div)
+    })
+  }
+}
+
+task.comp.html-------
+<div id="taskContainer"></div>
+    <button (click)="addTask()" [disabled]="isButtonDisabled">Add Task</button>
