@@ -1,0 +1,41 @@
+W4D5S3Q1
+
+
+
+charc.comp.html
+<div>
+    <input type="text" [(ngModel)]="inputText" placeholder="Enter text"/>
+    <div><p>Number of characters: {{inputText | characterCounter}}</p></div>
+</div>
+
+charc.comp.ts
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-character-count',
+  templateUrl: './character-count.component.html',
+  styleUrls: ['./character-count.component.css']
+})
+export class CharacterCountComponent implements OnInit {
+
+  inputText:string=''
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}
+
+char.pipe.ts
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'characterCounter'
+})
+export class CharacterCounterPipe implements PipeTransform {
+
+  transform(value:string): number {
+    return value.length;
+  }
+
+}

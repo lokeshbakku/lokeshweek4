@@ -1,0 +1,79 @@
+W4D5S1Q3
+
+app.html
+<app-item-list></app-item-list>
+item-list.ts
+import { Component, OnInit } from '@angular/core';
+
+export interface Item{
+  name:string,
+  description:string
+}
+
+@Component({
+  selector: 'app-item-list',
+  templateUrl: './item-list.component.html',
+  styleUrls: ['./item-list.component.css']
+})
+export class ItemListComponent implements OnInit {
+
+  items:Item[]=[
+    {name:'Item 1', description:'lorem'},
+    {name:'Item 1', description:'lorem'},
+    {name:'Item 1', description:'lorem'},
+    {name:'Item 1', description:'lorem'},
+  ]
+
+  selectedItem:Item;
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+  selectItem(index:number):void{
+    this.selectedItem = this.items[index]
+  }
+
+  clearSelectedItem():void{
+    this.selectedItem = null;
+  }
+}
+
+
+item-list.html
+<h2>Items</h2>
+<ul>
+    <li *ngFor="let item of items; let i = index" (click)="selectItem(i)">{{item.name}}</li>
+</ul>
+<app-item-detail [item]="selectedItem" (clearSelection)="clearSelectedItem()"></app-item-detail>
+
+item-detail.ts
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Item } from '../item-list/item-list.component';
+
+@Component({
+  selector: 'app-item-detail',
+  templateUrl: './item-detail.component.html',
+  styleUrls: ['./item-detail.component.css']
+})
+export class ItemDetailComponent implements OnInit {
+
+  @Input() item: Item
+  @Output() clearSelection = new EventEmitter()
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+  clear():void{
+    this.clearSelection.emit()
+  }
+
+}
+
+item-detail.html
+
+<div id="item-detail">
+    <p>{{item?.name}}</p>
+    <p>{{item?.description}}</p>
+    <button (click)="clear()">Clear Selection</button>
+</div>

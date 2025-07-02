@@ -1,0 +1,83 @@
+W4D5S1Q2
+
+app.comp.html
+<app-recipe-list></app-recipe-list>
+
+
+recipe-list.comp.html
+<h2>Recipes</h2>
+<ul>
+    <li *ngFor="let recipe of recipes; let i = index" (click)="selectRecipe(i)">{{recipe.name}}</li>
+</ul>
+<app-recipe-detail (clearSelection)="clearSelectedRecipe()" [recipe]="selectedRecipe"></app-recipe-detail>
+
+
+recipe-list.comp.ts
+import { Component, OnInit } from '@angular/core';
+
+export interface Recipe{
+  name:string,
+  description:string
+}
+
+@Component({
+  selector: 'app-recipe-list',
+  templateUrl: './recipe-list.component.html',
+  styleUrls: ['./recipe-list.component.css']
+})
+export class RecipeListComponent implements OnInit {
+
+  recipes:Recipe[]=[
+    {name:'sphagetti',description:'lorem56789'},
+    {name:'sphagetti',description:'lorem56789'},
+    {name:'sphagetti',description:'lorem56789'},
+  ]
+
+  selectedRecipe:Recipe = null;
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  selectRecipe(index:number):void{
+    this.selectedRecipe = this.recipes[index]
+  }
+
+  clearSelectedRecipe():void{
+    this.selectedRecipe = null;
+  }
+}
+
+
+recipe-detail.comp.html
+<div id="recipe-detail">
+    <p>{{recipe?.name}}</p>
+    <p>{{recipe?.description}}</p>
+    <button (click)="clear()">Clear Selection</button>
+</div>
+
+
+recipe-detail.comp.ts
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Recipe } from '../recipe-list/recipe-list.component';
+
+@Component({
+  selector: 'app-recipe-detail',
+  templateUrl: './recipe-detail.component.html',
+  styleUrls: ['./recipe-detail.component.css']
+})
+export class RecipeDetailComponent implements OnInit {
+
+
+  @Input() recipe: Recipe
+  @Output() clearSelection = new EventEmitter<void>()
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  clear():void{
+    this.clearSelection.emit()
+  }
+}
+

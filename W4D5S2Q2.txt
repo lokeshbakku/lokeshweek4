@@ -1,0 +1,59 @@
+W4D5S2Q2
+
+
+<app-shopping-list></app-shopping-list>
+
+.comp.ts-----------
+import { Component, OnInit } from '@angular/core';
+
+export interface Item{
+  name: string;
+  purchased:boolean;
+
+}
+
+@Component({
+  selector: 'app-shopping-list',
+  templateUrl: './shopping-list.component.html',
+  styleUrls: ['./shopping-list.component.css']
+})
+export class ShoppingListComponent implements OnInit {
+
+  items: Item[] = []
+  newItemName:string = ''
+  constructor() { }
+
+  ngOnInit(): void {}
+
+  addItem():void{
+    if(!this.newItemName) return;
+    const item: Item ={
+      name: this.newItemName,
+      purchased: false
+    }
+    this.items.push(item)
+    this.newItemName = ''
+  }
+  purchaseItem(item:Item):void{
+    item.purchased = !item.purchased
+  }
+  deleteItem(index:number):void{
+  this.items.splice(index, 1)
+  }
+}
+
+.comp.html-----------
+<input type="text" name="itemName" [(ngModel)]="newItemName">
+<button (click)="addItem()">Add Item</button>
+<ul *ngIf="items.length>0">
+    <li *ngFor="let item of items; let i = index">
+        <span [ngClass]="{'strike': item.purchased}">{{ item?.name }}</span>
+        <button (click)="purchaseItem(item)" [disabled]="item.purchased">Purchased</button>
+        <button (click)="deleteItem(i)">Delete</button>
+    </li>
+</ul>
+
+.comp.css--------
+.strike{
+    text-decoration: line-through;
+}

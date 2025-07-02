@@ -1,0 +1,62 @@
+W4D5S3Q2
+
+app.html
+<app-search></app-search>
+
+search.ts
+import { Component, OnInit } from '@angular/core';
+import { Item } from '../pipes/search-filter.pipe';
+
+
+@Component({
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css']
+})
+export class SearchComponent implements OnInit {
+
+
+  searchText: string=''
+
+  items: Item[]=[
+    {id:1, name:'Apple', category:'Fruit'},
+    {id:2, name:'Banana', category:'Fruit'},
+    {id:3, name:'Carrot', category:'Vegetable'},
+  ];
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}
+
+search.html
+<input type="text" name="searchText" [(ngModel)]="searchText" placeholder="Search.....">
+<div>
+    <ul>
+        <li *ngFor="let item of items | searchFilter:searchText">
+            {{item.name}}-{{item.category}}
+        </li>
+    </ul>
+</div>
+
+search.pipe.ts
+import { Pipe, PipeTransform } from '@angular/core';
+
+export interface Item{
+  id:number;
+  name:string;
+  category:string;
+}
+
+@Pipe({
+  name: 'searchFilter'
+})
+export class SearchFilterPipe implements PipeTransform {
+
+  transform(items: Item[], searchTerm:string): Item[] {
+    if(!items || !searchTerm) return items;
+    return items.filter(item=>item.name.toLowerCase().includes(searchTerm.toLowerCase()) || item.category.toLowerCase().includes(searchTerm.toLowerCase()))
+  }
+
+}

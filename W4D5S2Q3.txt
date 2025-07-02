@@ -1,0 +1,57 @@
+W4D5S2Q3
+
+app.html
+<app-todo-list></app-todo-list>
+
+todolist.comp.html
+
+<h1>To-Do List</h1>
+<input type="text" [(ngModel)]="newTask">
+<button (click)="addTask()">Add</button>
+<ul>
+    <li *ngFor="let task of tasks; let i = index">
+    <span [ngClass]="{'strike':task.completed}">{{task.title}}</span>
+    <button (click)="completeTask(task)">Complete</button>
+    <button (click)="deleteTask(task)">Delete</button>
+    </li>
+</ul>
+
+
+todolist.comp.ts
+
+import { Component, OnInit } from '@angular/core';
+
+interface Task{
+  title:string,
+  completed:boolean
+}
+
+@Component({
+  selector: 'app-todo-list',
+  templateUrl: './todo-list.component.html',
+  styleUrls: ['./todo-list.component.css']
+})
+export class TodoListComponent implements OnInit {
+
+  newTask:string = ''
+  tasks: Task[]=[]
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  addTask(){
+    if(!this.newTask) return;
+    let name:string = this.newTask;
+    this.tasks.push({title:name, completed:false});
+    this.newTask=""
+  }
+
+  completeTask(task: Task):void{
+    task.completed = true;
+  }
+
+  deleteTask(index:number):void{
+    this.tasks.splice(index, 1);
+  }
+}
