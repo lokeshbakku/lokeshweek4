@@ -1,0 +1,36 @@
+W4D4S1Q2
+
+
+app.comp.html
+<app-dynamic-message></app-dynamic-message>
+
+dynamic-message.comp.ts----------
+import { Component, OnInit, ViewChild, AfterViewInit ,ElementRef } from '@angular/core';
+
+@Component({
+  selector: 'app-dynamic-message',
+  templateUrl: './dynamic-message.component.html',
+  styleUrls: ['./dynamic-message.component.css']
+})
+export class DynamicMessageComponent implements OnInit {
+
+  @ViewChild('message', {static: false}) messageElement !: ElementRef
+  constructor() { }
+
+  ngOnInit(): void {}
+  ngAfterViewInit():void{
+    this.messageElement
+  }
+  
+  updateMessage():void{
+    this.messageElement.nativeElement.textContent = 'New message generated on button click!'
+  }
+
+}
+
+dynamic-message.comp.html------
+<div class="container">
+    <h2>Dynamic Message Converter</h2>
+    <span #message>Initial message</span><br><br>
+    <button (click)="updateMessage()">Update Message</button>
+</div>
