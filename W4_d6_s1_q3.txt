@@ -1,0 +1,98 @@
+////jobform.component.html
+
+<form #jobForm="ngForm" (ngSubmit)="onSubmit(jobForm)">
+    <h1>Job Registration Form</h1>
+    <label class="form-label">Name:</label>
+    <input type="text" name="name" ngModel required>
+    
+    <label class="form-label">Age:</label>
+    <input type="number" name="age" ngModel required>
+
+    <label class="form-label">Gender:</label>
+    <select name="gender" id="gender" ngModel required>
+        <option value="" disabled selected>Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select>
+
+    <label class="form-label">Email:</label>
+    <input type="email" name="email" ngModel required>
+    
+    <label class="form-label">Phone:</label>
+    <input type="tel" name="phone" ngModel required>
+
+    <label class="form-label">Job Position:</label>
+    <select name="jobPosition" id="jobPosition" ngModel required>
+        <option value="" disabled selected>Select Job Position</option>
+        <option value="Developer">Developer</option>
+        <option value="Manager">Manager</option>
+    </select>
+
+    <label class="form-label">Experience (in years):</label>
+    <select name="experience" id="experience" ngModel required>
+        <option value="" disabled selected>Select Experience</option>
+        <option value="0-2">0-2</option>
+        <option value="2-4">2-4</option>
+        <option value="4-6">4-6</option>
+    </select>
+
+    <label class="form-label">Skills:</label>
+    <input type="text" name="skills" id="skills" ngModel required>
+    
+    <label class="form-label">Education:</label>
+    <input type="text" name="education" id="education" ngModel required>
+
+    <label class="form-label">Comments:</label>
+    <textarea name="comments" id="comments" cols="30" rows="10" ngModel required></textarea>
+
+    <button type="submit" [disabled]="!jobForm.valid">Submit</button>
+</form>
+
+<div *ngIf="submitted" class="modal">
+    <div class="close" (click)="closeModal()">&times;</div>
+    <h2>Job Application Submitted</h2>
+    <p><strong>Name:</strong>{{formData.name}}</p>
+    <p><strong>Age:</strong>{{formData.age}}</p>
+    <p><strong>Gender:</strong>{{formData.gender}}</p>
+    <p><strong>Email:</strong>{{formData.email}}</p>
+    <p><strong>Phone:</strong>{{formData.phone}}</p>
+    <p><strong>Job Position:</strong>{{formData.jobPosition}}</p>
+    <p><strong>Experience:</strong>{{formData.experience}}</p>
+    <p><strong>Skills:</strong>{{formData.skills}}</p>
+    <p><strong>Education:</strong>{{formData.education}}</p>
+    <p><strong>Comments:</strong>{{formData.comments}}</p>
+</div>
+
+--------------------------------------------------------------
+
+/////jobform.component.ts
+
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+@Component({
+  selector: 'app-jobform',
+  templateUrl: './jobform.component.html',
+  styleUrls: ['./jobform.component.css']
+})
+export class JobformComponent implements OnInit {
+
+  submitted: boolean = false;
+  formData: any = {};
+
+  constructor() { }
+
+  ngOnInit(): void {}
+
+  onSubmit(form:NgForm) {
+    if(form.valid) {
+      this.formData = {...form.value};
+      this.submitted = true;
+      setTimeout(() => form.reset(),0);
+    }
+  }
+  closeModal() {
+    this.submitted = false;
+  }
+
+}
+

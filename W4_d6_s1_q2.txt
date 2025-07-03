@@ -1,0 +1,63 @@
+/////eventform.component.ts
+
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
+@Component({
+  selector: 'app-eventform',
+  templateUrl: './eventform.component.html',
+  styleUrls: ['./eventform.component.css']
+})
+export class EventformComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void { }
+
+  onSubmit(form: NgForm):void {
+    const { name, email, phone, event, diet } = form.value;
+    alert(`
+      Registration Successful!\n
+      Name: ${name}\n
+      Email ${email}\n
+      Phone: ${phone}\n
+      Event: ${event}\n
+      Dietary Preferences: ${diet}\n
+    `);
+  }
+}
+--------------------------------------------------------------
+
+/////eventform.component.html
+
+<h2>Event Registration Form</h2>
+<form #registrationForm="ngForm" (ngSubmit)="onSubmit(registrationForm)">
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" ngModel />
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" ngModel />
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input type="text" name="phone" id="phone" ngModel />
+    </div>
+    <div class="form-group">
+        <label for="event">Select Event:</label>
+        <select name="event" id="event" ngModel>
+            <option value=""disabled selected>Select your event</option>
+            <option value="Workshop">Workshop</option>
+            <option value="Seminar">Seminar</option>
+            <option value="Conference">Conference</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="diet">Dietary Preferences:</label>
+        <textarea name="diet" id="diet" cols="30" rows="10" ngModel></textarea>
+    </div>
+    <button type="submit">Register</button>
+</form>
+--------------------------------------------------------------
+
