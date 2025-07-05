@@ -1,0 +1,235 @@
+session1_3
+
+header.html
+<div class="navbar navbar-expand-lg bg-dark text-light">
+    <div class="navbar-brand">
+        <h2>My Portfolio</h2>
+    </div>
+
+    <nav>
+        <a routerLink="/">Home</a>
+        <a routerLink="/projects">Projects</a>
+        <a routerLink="/skills">Skills</a>
+        <a routerLink="/contact">Contact</a>
+    </nav>
+
+</div>
+
+
+home
+<h2>Welcome to my Portfolio Website</h2>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, consectetur?</p>
+<h3>About Me</h3>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam enim praesentium dolores quos impedit quaerat!</p>
+<h3>Experience</h3>
+<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores expedita delectus ad sed cum laborum debitis consequuntur, corporis eum harum.</p>
+<h3>Education</h3>
+<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+
+
+footer
+<p>&copy; 2024 Your Name. All rights reserved.</p>
+
+contact
+<h3>Contact Me</h3>
+<small>Lorem ipsum dolor sit amet consectetur adipisicing elit.</small>
+<p>Email: example@gmail.com</p>
+<p>Phone: +1234567890</p>
+<p>Social Media: <a href="">Linkedin</a><a href="">Twitter</a><a href="">Github</a></p>
+
+projects
+<h3>Projects</h3>
+<p>Lorem ipsum dolor sit amet.</p>
+<div>
+    <h4>Project 1: E-commerce website</h4>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis similique esse eum ea facilis earum dolores enim, itaque repudiandae totam!</p>
+</div>
+
+<div>
+    <h4>Project 2: E-commerce website</h4>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis similique esse eum ea facilis earum dolores enim, itaque repudiandae totam!</p>
+</div>
+
+<div>
+    <h4>Project 3: E-commerce website</h4>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis similique esse eum ea facilis earum dolores enim, itaque repudiandae totam!</p>
+</div>
+
+skills
+<h3>Skills</h3>
+<p>Lorem ipsum dolor sit amet.</p>
+<ul>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>Javascript</li>
+    <li>Angular</li>
+    <li>React</li>
+    <li>Nodejs</li>
+
+</ul>
+
+
+
+routing
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { SkillsComponent } from './skills/skills.component';
+import { ContactComponent } from './contact/contact.component';
+
+const routes: Routes = [
+  {path:'', component: HomeComponent},
+  {path: 'projects', component: ProjectsComponent},
+  {path: 'skills', component: SkillsComponent},
+  {path: 'contact', component: ContactComponent},
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+
+
+session1_2
+
+
+app.routing.module
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { MenuComponent } from './menu/menu.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
+
+const routes: Routes = [
+  {path:'menu', component:MenuComponent},
+  {path:'about', component:AboutComponent},
+  {path:'contact', component:ContactComponent}
+
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+
+navigation.html
+
+<nav>
+    <ul>
+        <li><a routerLink="/menu">Menu</a></li>
+        <li><a routerLink="/about">About</a></li>
+        <li><a routerLink="/contact">Contact</a></li>
+    </ul>
+</nav>
+
+
+session1_1
+
+navba
+<nav>
+    <a routerLink="/">Home</a>
+    <a routerLink="/about">About</a>
+    <a routerLink="/contact">Contact</a>
+</nav>
+
+app.componet.html
+<header>
+    <app-navbar></app-navbar>
+</header>
+<router-outlet></router-outlet>
+
+
+
+session2_q1
+
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-click-counter',
+  templateUrl: './click-counter.component.html',
+  styleUrls: ['./click-counter.component.css']
+})
+export class ClickCounterComponent implements OnInit {
+
+  counter:number = 0;
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  incrementCounter():void{
+    this.counter++;
+  }
+
+  resetCounter():void{
+    this.counter = 0;
+  }
+
+}
+
+
+
+<h1>Click COunter App</h1>
+<button (click)="incrementCounter()">Click Me</button>
+<button (click)="resetCounter()" >Reset Count</button>
+<p>Counter: {{counter}}</p>
+
+
+
+session2_2
+
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-text-modifier',
+  templateUrl: './text-modifier.component.html',
+  styleUrls: ['./text-modifier.component.css']
+})
+export class TextModifierComponent implements OnInit {
+
+  originalText:string = '';
+  modifiedText:string = '';
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  applyUppercase():void{
+    this.modifiedText = this.originalText.toUpperCase();
+  }
+
+  applyLowercase(){
+    this.modifiedText = this.originalText.toLowerCase();
+  }
+
+  applyReverse(){
+    this.modifiedText = this.originalText.split('').reverse().join('');
+  }
+
+  clearText(){
+    this.modifiedText = '';
+    this.originalText = '';
+  }
+
+}
+<h1>Welcome to Text Modifier</h1>
+
+<textarea name="originalText" id="originalText" cols="30" rows="10" [(ngModel)]="originalText" ></textarea>
+
+<button (click)="applyUppercase()" >Convert To Uppercase</button>
+<button (click)="applyLowercase()" >Convert to Lowercase</button>
+<button (click)="applyReverse()" >Reverse Text</button>
+<button (click)="clearText()" >Clear Text</button>
+
+<div *ngIf="modifiedText">
+    <p>Modified Text:</p>
+    <p>{{modifiedText}}</p>
+</div>
+
