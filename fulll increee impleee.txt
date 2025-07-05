@@ -1,0 +1,573 @@
+admin dash
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.rtl.min.css">
+
+</head>
+<body>
+    <h2>Admin Dashboard - Plant List</h2>
+    <button id="showMoreBtn" class="btn btn-info my-3">Show More</button>
+    <div id="extraInfo" class="d-none">
+        <p><strong>Description:</strong>This dashboard gives an overview of available plants including stock levels and pricing.</p>
+    </div>
+    <button class="btn btn-danger"><a href="login.html">Logout</a></button>
+    <div>
+        <table class="table table-bordered" style="text-align: center;">
+            <thead class="thead-success">
+                <tr>
+                    <th class="bg-success text-white">Plant ID</th>
+                    <th class="bg-success text-white">Plant Name</th>
+                    <th class="bg-success text-white">Category</th>
+                    <th class="bg-success text-white">Price</th>
+                    <th class="bg-success text-white">Stock</th>
+                    <th class="bg-success text-white">Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div class="modal fade" id="adminlogoutModal" tabindex="-1" aria-labelledby="adminlogoutModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content text-center">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="adminlogoutModalLabel">Confirm Logout</h5>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to logout?
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button id="confirmAdminLogout" class="btn btn-danger">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+	<!--Write your code here -->
+
+
+    <script>
+        document.getElementById('showMoreBtn').addEventListener('click', ()=>{
+            document.getElementById('extraInfo').classList.remove('d-none')
+        })
+        document.getElementById('adminLogoutBtn').addEventListener('click', ()=>{
+            const modal = new bootstrap.Modal(document.getElementById('adminlogoutModal'))
+            modal.show()
+        })
+        document.getElementById('confirmAdminLogout').addEventListener('click', ()=>{
+            window.location.href = 'login.html'
+        })
+    </script>
+
+</body>
+</html>
+
+
+
+forgot pass
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <h1>Forgot Password</h1>
+  <label for="email">Email</label>
+  <label for="newpassword">New Password</label>
+  <!--Write your code here -->
+</body>
+</html>
+
+
+
+
+
+
+index---
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.rtl.min.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            width: 100%;
+            height: 100vh;
+            background-image: url('./images/nursery-bg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .container-fluid{
+            background-color: rgba(218, 209, 209, 0.5) !important;
+        }
+    </style>
+</head>
+<body>
+    <a href="login.html">Welcome</a>
+    <a href="register.html">Register</a>
+    <a href="user-dashboard.html">User Dashboard</a>
+    <a href="admin-dashboard.html">Admin Dashboard</a>
+    <div class="container-fluid w-50 p-5 d-flex flex-column rounded border justify-content-center align-items-center">
+        <h3 class="mt-2 text-success">Welcome to Online Nursery</h3>
+        <small>Your best place to buy plants!</small>
+        <button class="btn btn-success mt-3"><a href="login.html" class="text-light text-decoration-none">Login</a></button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+	<!--Write your code here -->
+</body>
+</html>
+
+
+login ___
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Login - Online Nursery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font-bootstrap-icons.css">
+    <style>
+        .container-fluid{
+            height: 100vh;
+            background-image: url('./images/nursery-bg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .form-label:after{
+            content: '*';
+            color: red;
+        }
+        @media (max-width: 767px){
+            .login-form{
+                font-size: 14px;
+            }
+            .register-right-content{
+                display: none;
+            }
+            .register-container{
+                /* display: flex;
+                justify-content: center; */
+                width: 100%;
+            }
+        }
+        @media (min-width:768px) and (max-width:1023px){
+            .login-form{
+                font-size: 16px;
+            }
+        }
+        @media (min-width:1024px){
+            .login-form{
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid w-100 d-flex justify-content-center align-items-center">
+        <div class="register-container w-50 bg-white p-2 d-flex flex-row justify-content-between shadow-lg rounded">
+            <div class="register-right-content w-50">
+                <img src="./images/login.png" class="w-100 h-100 ms-3">
+            </div>
+            <div class="register-left-content d-flex flex-column w-50">
+
+                <div class="logo d-flex flex-column justify-content-center align-items-center w-100 h-100">
+                    <img src="./images/logo.png" class="w-25 h-50" alt="">
+                    <h1 class="h6">Login to Your Account</h1>
+                    <small>Welcome back! Enter your credentials</small>
+                </div>
+                <form class="d-flex flex-column w-100 mt-2">
+                    <div class="login-form w-100">
+                        <label for="name" class="form-label">User Name</label>
+                        <input type="text" class="form-control" placeholder="Enter your username">
+                    </div>
+                    <div class="login-form mt-2">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" placeholder="*****">
+                    </div>
+                    <div class="login-form d-flex flex-column mt-2">
+                        <label for="role">Select Role</label>
+                        <select name="role" id="role" class="form-select">
+                            <option class="form-select-input" value="Admin">Admin</option>
+                            <option class="form-select-input" value="User">User</option>
+                        </select>
+                    </div>
+                    <small class="d-flex justify-content-end"><a href="">Forget Password?</a></small>
+                    <div class="login-form mt-3">
+                        <button class="btn btn-success w-100">Login</button>
+                    </div>
+                </form>
+                <small class="d-flex justify-content-center">Don't have an account? <a href="register.html">Create an account</a></small>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+	<!--Write your code here -->
+</body>
+</html>
+
+
+orders____
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+</head>
+<body>
+	<!--Write your code here -->
+    <a href="#">Back to Shop</a>
+    <h1>your orders</h1>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+
+register------
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Online Nursery</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.rtl.min.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity = "sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHT17GptT4jmndRuHDT" crossorigin="anonymous"> -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"> -->
+  <style>
+    .container-fluid{
+      height: 100vh;
+      background-image: url('./images/nursery-bg.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    .form-label:after{
+      content: '*';
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid w-100 d-flex justify-content-center align-items-center">
+    <div class="register-container w-50 bg-white rounded p-2 d-flex  flex-row justify-content-between shadow-lg">
+      <div class="register-left-content d-flex flex-column w-50">
+
+        <div class="logo d-flex flex-column justify-content-center align-items-center w-100 h-100">
+          <img src="./images/logo.png" alt="" class="w-25 h-50">
+          <h1 class="h6">Create Account</h1>
+          <small>Join us and start shopping for plants today!</small>
+        </div>
+        <form id="form-reg" class="d-flex flex-column w-100">
+          <div class="form-group w-100">
+            <label for="name" class="form-label">User Name</label>
+            <input type="name" id="name" class="form-control" placeholder="Enter your username" required/>
+            <small id="nameError"></small>
+          </div>
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" class="form-control" placeholder="Enter your email" required/>
+            <small id="emailError"></small>
+          </div>
+          <div class="form-group">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required/>
+            <small id="phoneError"></small>
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="*********" required/>
+            <small id="passwordError"></small>
+          </div>
+          <div class="form-group d-flex">
+            <div><label for="">Role</label></div>
+            <input type="radio" class="form-check-input" id="user" name="role">
+            <div class="form-check">
+              <label for="Role" name="user" class="form-check-label">User</label>
+            </div>
+            <input type="radio" class="form-check-input" id="admin" name="role">
+            <div class="form-check">
+              <label for="Role" name="admin" class="form-check-label">Admin</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <button id="register" class="btn btn-success w-100">Register</button>
+          </div>
+        </form>
+        <small class="d-flex justify-content-center">Already have an account? <a href="login.html">Sign in</a></small>
+       </div>
+       <div class="register-right-content w-50">
+        <img src="./images/login.png" class="w-100 h-100 ms-3" alt="">
+       </div>
+       </div>
+       </div>
+       
+
+<!--Write your code here -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"
+integrity="sha384-j1CDi7MgGQ12Z7Qab0q1WQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+
+  <script>
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\d)(?=.*[@!%*?&]){8,}$/
+    document.getElementById('form-reg').addEventListener('click', (e)=>{
+      e.preventDefault()
+
+    // const registerBtn = document.getElementById('register')
+    // registerBtn.addEventListener('click', (e)=>{
+      const uname = document.getElementById('name').value.trim()
+      const email = document.getElementById('email').value.trim()
+      const phone = document.getElementById('phone').value.trim()
+      const password = document.getElementById('password').value.trim()
+      // console.log(uname)
+
+      const unameerror = document.getElementById('userError')
+      const emailerror = document.getElementById('emailError')
+      const phoneerror = document.getElementById('phoneError')
+      const passworderror = document.getElementById('passwordError')
+
+      if(email==''){
+        emailError.classList.add('error')
+        emailError.textContent = "Email is required!"
+      }
+      else if(emailRegex.test(email)==false){
+        emailError.classList.add('error')
+        emailError.textContent = "Invalid email format! (e.g., example@gmail.com)"
+      }
+      else{
+        emailError.textContent = ''
+      }
+      if(!password){
+        passwordError.textContent = "Password is required!"
+      }
+      else if(passRegex.test(password)==false){
+        passwordError.classList.add('error')
+        passwordError.textContent = "Password should be atleast 8 characters long and include uppercase, lowercase, number, and special character."
+      } else{
+        password.textContent=''
+      }
+      if(!phone){
+        phoneError.classList.add('error')
+        phoneError.textContent = "Phone number is required!"
+      }
+      if(!uname){
+        nameError.classList.add('error')
+        nameError.textContent = "User Name is required!"
+      }
+
+    })
+
+  </script>
+</body>
+</html>
+
+
+script js___
+
+
+const plantList = [
+    { id: 1, name: "Rose", category: "Flowering", price: 10, stock: "Available", image: "assets/images/rose.jpg", description: "Beautiful red rose." },
+    { id: 2, name: "Tulsi", category: "Herbal", price: 8, stock: "Available", image: "assets/images/tulsi.jpg", description: "Holy basil, used in Ayurveda." },
+    { id: 3, name: "Cactus", category: "Succulent", price: 12, stock: "Out of Stock", image: "assets/images/cactus.jpg", description: "Drought-resistant plant." },
+    { id: 4, name: "Orchid", category: "Ornamental", price: 15, stock: "Available", image: "assets/images/orchid.jpg", description: "Elegant and exotic flowers." },
+    { id: 5, name: "Money Plant", category: "Indoor", price: 9, stock: "Available", image: "assets/images/moneyplant.jpg", description: "Brings good luck and prosperity." },
+    { id: 6, name: "Sunflower", category: "Flowering", price: 7, stock: "Available", image: "assets/images/sunflower.jpg", description: "Bright yellow flowers that follow the sun." },
+    { id: 7, name: "Tulip", category: "Flowering", price: 14, stock: "Out of Stock", image: "assets/images/tulip.jpg", description: "Spring blooming flowers with vibrant colors." },
+    { id: 8, name: "Jasmine", category: "Fragrant", price: 11, stock: "Available", image: "assets/images/jasmine.jpg", description: "Sweet-smelling white flowers." },
+    { id: 9, name: "Aloe Vera", category: "Medicinal", price: 10, stock: "Available", image: "assets/images/aloevera.jpg", description: "Used for skin and health benefits." }
+];
+
+const tbody = document.querySelector('tbody')
+plantList.forEach((plant)=>{
+    console.log(plant)
+    const row = document.createElement('tr')
+    row.innerHTML=`
+        <td>${plant.id}</td>
+        <td>${plant.name}</td>
+        <td>${plant.category}</td>
+        <td>${plant.price}</td>
+        <td>${plant.stock}</td>
+        <td><button class="btn btn-success">Show More</button></td>
+    `;
+    tbody.appendChild(row)
+})
+
+
+user-dashbord----
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.rtl.min.css">
+    <style>
+        body{
+            background-image: linear-gradient(yellow, yellow, green, green);
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height: 100vh;
+        }
+        .plant-card{
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            background-color: white;
+        }
+        .plant-card:hover{
+            transition-duration: 1s;
+            transform: scale(1.2) translateY(10px) rotateZ(8deg);
+        }
+        img{
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid py-4">
+        <div class="d-flex justify-content-around align-items-center">
+            <div class="heading d-flex flex-column justify-content-center align-items-center">
+                <h1 class="h5">Welcome, User</h1>
+                <small>Cart items: 0</small>
+            </div>
+            <div class="d-flex flex-row gap-2">
+                <button class="btn btn-success">Go to Orders</button>
+                <button class="btn btn-danger">Logout</button>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+            <div class="col">
+                <div onclick="myfunction()" class="plant-card">
+                <img src="./images/rose.jpg" alt="">
+                    <h6>Rose Plant</h6>
+                    <p>Price: $10</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="plant-card">
+                <img src="./images/tulip.jpg" alt="">
+                <h6>Tulip Plant</h6>
+                <p>Price: $12</p>
+            </div>
+        </div>
+            <div class="col">
+                <div class="plant-card">
+                <img src="./images/aloevera.jpg" alt="">
+                <h6>Aloe Vera</h6>
+                <p>Price: $8</p>
+            </div>
+        </div>
+            <div class="col">
+                <div class="plant-card">
+                <img src="./images/cactus.jpg" alt="">
+                <h6>Cactus</h6>
+                <p>Price: $15</p>
+            </div>
+        </div>
+            <div class="col">
+                <div class="plant-card">
+                <img src="./images/moneyplant.jpg" alt="">
+                <h6>Moneyplant</h6>
+                <p>Price: $9</p>
+            </div>
+        </div>
+            <div class="col">
+                <div class="plant-card">
+                <img src="./images/jasmine.jpg" alt="">
+                <h6>Jasmine</h6>
+                <p>Price: $14</p>
+            </div>
+        </div>
+            <div class="col">
+                <div class="plant-card">
+                <img src="./images/lily.jpg" alt="">
+                <h6>Lily</h6>
+                <p>Price: $11</p>
+            </div>
+        </div>
+            <div class="col">
+                <div class="plant-card">
+                <img src="./images/sunflower.jpg" alt="">
+                <h6>Sunflower</h6>
+                <p>Price: $13</p>
+            </div>
+        </div>
+            <div class="col">
+                <div class="plant-card">
+                    <img src="./images/orchid.jpg" alt="">
+                    <h6>Orchid</h6>
+                    <p>Price: $18</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content text-center">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to logout?
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="confirmLogout" class="btn btn-danger">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+	<!--Write your code here -->
+
+
+    <script>
+        document.querySelector('.btn-danger').addEventListener('click', ()=>{
+            const logoutModal = new bootstrap.Modal(document.getElementById('logoutModal'))
+            logoutModal.show()
+        })
+        document.getElementById('confirmLogout').addEventListener('click', ()=>{
+            window.location.href = 'login.html'
+        })
+    </script>
+</body>
+</html>
+
+
