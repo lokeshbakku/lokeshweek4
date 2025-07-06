@@ -1,0 +1,149 @@
+import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+interface Note{
+  id:number;
+  title: string;
+  body:string;
+}
+
+@Component({
+  selector: 'app-note',
+  templateUrl: './note.component.html',
+  styleUrls: ['./note.component.css']
+})
+export class NoteComponent implements OnInit {
+
+  notes:Note[] = [];
+
+  private notesSubject = new BehaviorSubject<Note[]>([]);
+
+  notes$: Observable<Note[]> = this.notesSubject.asObservable();
+
+  newNoteTitle:string = '';
+  newNoteBody:string = '';
+
+  constructor() { }
+
+  ngOnInit(): void {
+    this.notesSubject.next(this.notes);
+  }
+
+  addNote():void{
+    if(! this.newNoteTitle || ! this.newNoteBody) {return ;}
+    const note: Note = {
+      id: this.notes.length + 1,
+      title: this.newNoteTitle,
+      body: this.newNoteBody
+    }
+
+    this.notes.push(...this.notes, note);
+    this.notesSubject.next(this.notes);
+    this.newNoteBody = '';
+    this.newNoteTitle = '';
+  }
+
+}
+
+
+
+<h1>Notes</h1>
+<form #noteForm="ngForm" (ngSubmit)="addNote()">
+    <div class="form-group">
+        <input type="text" name="title" id="title" placeholder="Title" [(ngModel)]="newNoteTitle" required />
+    </div>
+
+    <div class="form-group">
+        <textarea name="body" cols="30" rows="10" [(ngModel)]="newNoteBody" placeholder="Body" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <button type="submit">Add Note</button>
+    </div>
+</form>
+
+<ul>
+    <li *ngFor="let item of notes$ | async">
+        <h2>{{item.title}}</h2>
+        <p>{{item.body}}</p>
+    </li>
+</ul>
+
+
+session3_q2
+
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
+@Component({
+  selector: 'app-registration-form',
+  templateUrl: './registration-form.component.html',
+  styleUrls: ['./registration-form.component.css']
+})
+export class RegistrationFormComponent implements OnInit {
+
+  isSubmitted: boolean = false;
+  passwordMismatch:boolean = false;
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  onSubmit(form: NgForm):void{
+    const password = form.value.password;
+    const confirmPassword = form.value.confirmPassword;
+    if(password !== confirmPassword){
+      this.passwordMismatch = true;
+      return;
+    }
+    if(form.valid){
+      this.isSubmitted = true;
+      form.resetForm();
+      this.passwordMismatch = false;
+    } 
+  }
+
+}
+
+
+<h1>Registration Form</h1>
+<form #registrationForm="ngForm" (ngSubmit)="onSubmit(registrationForm)">
+
+    <div class="form-group">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" name="name" id="name" #nameRef="ngModel" ngModel required class="form-control">
+        <small *ngIf="nameRef?.errors?.required" >Name is required</small>
+    </div>
+
+    <div class="form-group">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" name="email" id="email" ngModel #emailRef="ngModel" required />
+        <small *ngIf="emailRef?.errors?.required" >Email is required</small>
+    </div>
+
+    <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="password" ngModel #passwordRef="ngModel" required />
+        <small *ngIf="passwordRef?.errors?.required" >Password is required</small>
+    </div>
+
+    <div class="form-group">
+        <label for="confirmPassword" class="form-label">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" ngModel #cpasswordRef="ngModel" required />
+        <!-- <small *ngIf="cpasswordRef?.errors?.required" class="error-message" >Confirm Password is required</small>
+        <small *ngIf="passwordMismatch && cpasswordRef.dirty && !cpasswordRef.errors?.required" class="error-message" >Password do not match</small> -->
+
+        <div *ngIf="passwordMismatch">
+            Password do not match
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" [disabled]="registrationForm.invalid" >Register</button>
+    </div>
+</form>
+
+<div *ngIf="isSubmitted">
+    <p class="success-message">Registration successful!</p>
+</div>
